@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 4000010515629678}
   - component: {fileID: 33000012255451780}
   - component: {fileID: 23000014146456298}
+  - component: {fileID: 136760280691431150}
   m_Layer: 0
   m_Name: Oak
   m_TagString: Untagged
@@ -99,8 +100,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011745704624}
   m_LocalRotation: {x: 0.000000021855694, y: -1.1102232e-16, z: 1.1102232e-16, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4.8960514, y: 7.0150604, z: -2.2567577}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 4000013803989304}
   - {fileID: 4000011259778204}
@@ -255,3 +256,16 @@ CapsuleCollider:
   m_Height: 8.97
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &136760280691431150
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011745704624}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.63
+  m_Height: 18.53
+  m_Direction: 1
+  m_Center: {x: 0.02, y: 9.12, z: -0.21}

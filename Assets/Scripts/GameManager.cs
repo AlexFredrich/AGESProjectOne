@@ -161,13 +161,11 @@ public class GameManager : MonoBehaviour
 
     private bool AllResourcesGone()
     {
-        for(int i = 0; i < m_Resources.Length; i++)
-        {
-            if (m_Resources[i].activeSelf)
-                deadResources++;
-        }
-
-        return deadResources <= 1;
+        if (Depletion.deadResources == 6)
+            return true;
+        else
+            return false;
+       
 
     }
 

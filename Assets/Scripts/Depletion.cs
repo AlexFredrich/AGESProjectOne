@@ -18,6 +18,8 @@ public class Depletion : MonoBehaviour
     public static int player3Score;
     public static int player4Score;
 
+    public static int deadResources;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
@@ -51,7 +53,7 @@ public class Depletion : MonoBehaviour
         if (other.tag == "Player")
         {
             numberOfPlayersInTrigger--;
-            
+            StopCoroutine("HarvestingResource");
         }
     }
 
@@ -59,14 +61,18 @@ public class Depletion : MonoBehaviour
 
     private IEnumerator HarvestingResource()
     {
-        while(resourceCounter.value < resourceCounter.maxValue)
+        bool Done = false;
+        do
         {
-            resourceCounter.value += 1;
-            yield return new WaitForSeconds(5);
-            if (resourceCounter.value == resourceCounter.maxValue)
-                break;
+            resourceCounter.value++;
+            yield return new WaitForSeconds(1);
 
-;        }
+
+            if (resourceCounter.value == resourceCounter.maxValue)
+                Done = true;
+
+            
+        } while (!Done);
 
         
         if (m_Player.name == "Player1")
@@ -77,7 +83,8 @@ public class Depletion : MonoBehaviour
             player3Score += scoreValue;
         else if (m_Player.name == "Player4")
             player4Score += scoreValue;
-      
+
+        deadResources++;
         Debug.Log("Gained 100 points.");
         gameObject.SetActive(false);
     }

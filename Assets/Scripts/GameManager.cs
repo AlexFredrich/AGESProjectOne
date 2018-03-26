@@ -92,6 +92,11 @@ public class GameManager : MonoBehaviour
         {
             //SceneManager.LoadScene("Level");
             endMessagePanel.SetActive(true);
+            if (Input.GetButton("Fire1"))
+                SceneManager.LoadScene("Level");
+            if (Input.GetButton("Submit1"))
+                SceneManager.LoadScene("Menu");
+
         }
         else
         {
@@ -224,8 +229,13 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < numberOfPlayers; i++)
         {
             m_Players[i].Reset();
-            m_Players[i].m_PlayerScore.text = "Player " + (i + 1).ToString() + ": 0";
+            
         }
+
+        Depletion.player1Score = 0;
+        Depletion.player2Score = 0;
+        Depletion.player3Score = 0;
+        Depletion.player4Score = 0;
     }
 
     private void EnablePlayerControl()

@@ -11,9 +11,9 @@ public class PlayerShooting : MonoBehaviour {
     [SerializeField]
     private Transform m_FireTransform;
     [SerializeField]
-    private float m_MinLaunchForce = 15f;
+    private float m_MinLaunchForce = 5f;
     [SerializeField]
-    private float m_MaxLaunchForce = 30f;
+    private float m_MaxLaunchForce = 10f;
     [SerializeField]
     private float m_MaxChargeTime = 0.75f;
 

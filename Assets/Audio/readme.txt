@@ -1,5 +1,5 @@
 Thank you so much for your download.
-Music composed by Nazar Rybak from HookSounds.com
+Music composed by Nick Petrov from HookSounds.com
 
 Your support means the world to us and we hope that you are happy with your download. If there's anything that we can do to make you even happier, please let us know!
 

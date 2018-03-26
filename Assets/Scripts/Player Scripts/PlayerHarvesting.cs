@@ -4,16 +4,27 @@ using UnityEngine;
 
 public class PlayerHarvesting : MonoBehaviour {
 
-    public static int resources = 0;
-    [SerializeField]
-    private int delayTime = 5;
+
+    public bool EnteredTrigger;
+    
 
     private void OnTriggerStay(Collider other)
     {
-        resources += 5;
+       if(other.tag == "Resource")
+        {
+            EnteredTrigger = true;
 
-
-        Debug.Log("Resources = " + resources);
+        }
+        
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.tag == "Resource")
+        {
+            EnteredTrigger = false;
+        }
+    }
+
 
 }

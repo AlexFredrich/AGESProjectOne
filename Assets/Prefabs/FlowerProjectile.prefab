@@ -674,7 +674,7 @@ MonoBehaviour:
     m_Bits: 256
   m_ImpactParticles: {fileID: 198199065072458330}
   m_ImpactForce: 200
-  m_MaxLifeTime: 2
+  m_MaxLifeTime: 4
   m_ImpactRadius: 5
 --- !u!135 &135657661581434790
 SphereCollider:

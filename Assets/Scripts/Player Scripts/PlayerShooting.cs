@@ -30,7 +30,7 @@ public class PlayerShooting : MonoBehaviour {
     void Start ()
     {
         m_FireButton = "Fire" + m_PlayerNumber;
-
+        m_Fired = false;
         m_ChargeSpeed = (m_MaxLaunchForce - m_MinLaunchForce) / m_MaxChargeTime;
 
 	}
@@ -46,7 +46,7 @@ public class PlayerShooting : MonoBehaviour {
         }
         else if(Input.GetButtonDown(m_FireButton))
         {
-            m_Fired = false;
+            
             m_CurrentLaunchForce = m_MinLaunchForce;
 
         }
@@ -69,5 +69,14 @@ public class PlayerShooting : MonoBehaviour {
         shellInstance.velocity = m_CurrentLaunchForce * m_FireTransform.forward; 
 
         m_CurrentLaunchForce = m_MinLaunchForce;
+
+        StartCoroutine(CoolDown());
+
+    }
+
+    public IEnumerator CoolDown()
+    {
+        yield return new WaitForSeconds(3);
+        m_Fired = false;
     }
 }

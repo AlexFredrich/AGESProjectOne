@@ -8,9 +8,9 @@ using System;
 public class ButtonActions : MonoBehaviour
 {
     [SerializeField]
-    Button createButton, creditsButton, exitButton, returnButton, startButton;
+    Button createButton, creditsButton, exitButton, returnButton, startButton, controlsButton, secondReturnButton;
     [SerializeField]
-    GameObject MainMenu, JoinMenu, CreditsScreen;
+    GameObject MainMenu, JoinMenu, CreditsScreen, ControlsScreen;
 
     private void Awake()
     {
@@ -24,12 +24,18 @@ public class ButtonActions : MonoBehaviour
         ExitGame.onClick.AddListener(EndGame);
         Button StartButton = startButton.GetComponent<Button>();
         StartButton.onClick.AddListener(StartGame);
+        Button ControlsButton = controlsButton.GetComponent<Button>();
+        ControlsButton.onClick.AddListener(ControlsOpen);
+        Button SecondReturnButton = secondReturnButton.GetComponent<Button>();
+        SecondReturnButton.onClick.AddListener(ControlsClose);
+
     }
     // Use this for initialization
     void Start()
     {
         CreditsScreen.SetActive(false);
         JoinMenu.SetActive(false);
+        ControlsScreen.SetActive(false);
     }
 
     public void CreditOpen()
@@ -41,6 +47,16 @@ public class ButtonActions : MonoBehaviour
     public void CreditClose()
     {
         CreditsScreen.SetActive(false);
+        MainMenu.SetActive(true);
+    }
+    public void ControlsOpen()
+    {
+        ControlsScreen.SetActive(true);
+        MainMenu.SetActive(false);
+    }
+    public void ControlsClose()
+    {
+        ControlsScreen.SetActive(false);
         MainMenu.SetActive(true);
     }
 

@@ -8,6 +8,10 @@ public class PlayerCount : MonoBehaviour {
 
     [SerializeField]
     List<Text> joinText;
+    [SerializeField]
+    AudioSource joinSound;
+    [SerializeField]
+    AudioClip join;
 
     public static int NumberOfPlayers
     {
@@ -44,6 +48,7 @@ public class PlayerCount : MonoBehaviour {
                 continue;
             if(Input.GetButtonDown(joinButtonName + (i+1).ToString()))
             {
+                joinSound.PlayOneShot(join);
                 joinText[i].text = "Player " + (i + 1).ToString() + " has joined.";
                 joinedPlayers[i] = true;
             }

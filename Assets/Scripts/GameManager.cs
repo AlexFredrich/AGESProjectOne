@@ -130,14 +130,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    //private void UpdatePlayerScores()
-    //{
-    //    for(int i = 0; i < numberOfPlayers; i++)
-    //    {
-    //        m_Players[i].m_PlayerScore.text = "Player " + (i + 1).ToString() + ": " + m_Players[i].m_Score.ToString();
-    //    }
-    //}
-
     private IEnumerator RoundEnding()
     {
         DisablePlayerControls();
@@ -173,7 +165,7 @@ public class GameManager : MonoBehaviour
     {
         int maxValue = 0;
         int winningIndex = -1;
-        for (int i = 0; i < Scores[i]; i++)
+        for (int i = 0; i < m_Players.Length; i++)
         {
             if (Scores[i] > maxValue)
             {

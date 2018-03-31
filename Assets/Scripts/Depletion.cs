@@ -54,6 +54,7 @@ public class Depletion : MonoBehaviour
         {
             numberOfPlayersInTrigger--;
             StopCoroutine("HarvestingResource");
+            resourceCounter.value = 0;
         }
     }
 

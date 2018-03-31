@@ -76,7 +76,7 @@ public class PlayerShooting : MonoBehaviour {
 
     public IEnumerator CoolDown()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         m_Fired = false;
     }
 }

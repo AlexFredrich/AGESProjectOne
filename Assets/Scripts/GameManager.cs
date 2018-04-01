@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    private int m_NumRoundsToWin = 5;
+    private int m_NumRoundsToWin = 1;
     [SerializeField]
     private float m_StartDelay = 3f;
     [SerializeField]
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] m_Resources;
     private int deadResources;
     private int[] Scores = new int[4];
+    
 
     private int m_RoundNumber;
     private WaitForSeconds m_StartWait;
@@ -30,6 +32,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private GameObject endMessagePanel;
+    [SerializeField]
+    private EventSystem ES;
+    [SerializeField]
+    private GameObject button;
+    private GameObject storeSelected;
 
 	// Use this for initialization
 	private void Start ()
@@ -43,7 +50,7 @@ public class GameManager : MonoBehaviour
         SpawnAllTanks();
         SetCameraTargets();
 
-
+        storeSelected = ES.firstSelectedGameObject;
         StartCoroutine(GameLoop());
 	}
 
@@ -92,10 +99,7 @@ public class GameManager : MonoBehaviour
         {
             //SceneManager.LoadScene("Level");
             endMessagePanel.SetActive(true);
-            if (Input.GetButton("Fire1"))
-                SceneManager.LoadScene("Level");
-            if (Input.GetButton("Submit1"))
-                SceneManager.LoadScene("Menu");
+            ES.SetSelectedGameObject(button);
 
         }
         else
@@ -163,18 +167,24 @@ public class GameManager : MonoBehaviour
 
     private PlayerManager GetRoundWinner()
     {
-        int maxValue = 0;
-        int winningIndex = -1;
-        for (int i = 0; i < m_Players.Length; i++)
+        bool tie = false;
+        int winningNumber = 0;
+        SettingScores();
+        for (int i = 0; i < Scores.Length; i++)
         {
-            if (Scores[i] > maxValue)
+            if (Scores[winningNumber] == Scores[i] && i != 0)
+                tie = true;
+            else if (Scores[i] > Scores[winningNumber])
             {
-                maxValue = Scores[i];
-                winningIndex = i;
+                winningNumber = i;
             }
 
         }
-        return m_Players[winningIndex];
+        if (!tie)
+            return m_Players[winningNumber];
+        else
+            return null;
+
     }
 
     private PlayerManager GetGameWinner()
@@ -221,11 +231,17 @@ public class GameManager : MonoBehaviour
             m_Players[i].Reset();
             
         }
+        for(int i = 0; i < m_Resources.Length; i++)
+        {
+            m_Resources[i].SetActive(true);
+        }
 
+        Depletion.deadResources = 0;
         Depletion.player1Score = 0;
         Depletion.player2Score = 0;
         Depletion.player3Score = 0;
         Depletion.player4Score = 0;
+        
     }
 
     private void EnablePlayerControl()
@@ -243,6 +259,16 @@ public class GameManager : MonoBehaviour
             m_Players[i].DisableControl();
         }
 
+    }
+
+    public void Replay()
+    {
+        SceneManager.LoadScene("Level");
+    }
+
+    public void ToMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 
 }

@@ -11,7 +11,10 @@ public class Depletion : MonoBehaviour
     private GameObject m_Player;
     [SerializeField]
     private Slider resourceCounter;
+    [SerializeField]
+    private Image Fill;
     private int scoreValue = 100;
+    private bool Done;
 
     public static int player1Score;
     public static int player2Score;
@@ -19,6 +22,12 @@ public class Depletion : MonoBehaviour
     public static int player4Score;
 
     public static int deadResources;
+
+    private void OnEnable()
+    {
+        Done = false;
+        numberOfPlayersInTrigger = 0;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -62,9 +71,18 @@ public class Depletion : MonoBehaviour
 
     private IEnumerator HarvestingResource()
     {
-        bool Done = false;
+        
         do
         {
+            if (m_Player.name == "Player1")
+                Fill.color = Color.blue;
+            else if (m_Player.name == "Player2")
+                Fill.color = Color.green;
+            else if (m_Player.name == "Player3")
+                Fill.color = Color.yellow;
+            else if (m_Player.name == "Player4")
+                Fill.color = Color.red;
+            
             resourceCounter.value++;
             yield return new WaitForSeconds(1);
 
@@ -87,6 +105,7 @@ public class Depletion : MonoBehaviour
 
         deadResources++;
         Debug.Log("Gained 100 points.");
+        resourceCounter.value = 0;
         gameObject.SetActive(false);
     }
 

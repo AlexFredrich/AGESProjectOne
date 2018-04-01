@@ -6,7 +6,11 @@ public class PlayerHarvesting : MonoBehaviour {
 
 
     public bool EnteredTrigger;
-    
+
+    private void OnEnable()
+    {
+        EnteredTrigger = false;
+    }
 
     private void OnTriggerStay(Collider other)
     {

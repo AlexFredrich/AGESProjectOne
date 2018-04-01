@@ -4,13 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEngine.EventSystems;
 
 public class ButtonActions : MonoBehaviour
 {
     [SerializeField]
-    Button createButton, creditsButton, exitButton, returnButton, startButton, controlsButton, secondReturnButton;
+    GameObject createButton, creditsButton, exitButton, returnButton, startButton, controlsButton, secondReturnButton;
     [SerializeField]
     GameObject MainMenu, JoinMenu, CreditsScreen, ControlsScreen;
+    [SerializeField]
+    EventSystem eventSystem;
+    private GameObject storeSelected;
 
     private void Awake()
     {
@@ -36,28 +40,47 @@ public class ButtonActions : MonoBehaviour
         CreditsScreen.SetActive(false);
         JoinMenu.SetActive(false);
         ControlsScreen.SetActive(false);
+        storeSelected = eventSystem.firstSelectedGameObject;
+    }
+
+    private void Update()
+    {
+        if(eventSystem.currentSelectedGameObject != storeSelected)
+        {
+            if (eventSystem.currentSelectedGameObject == null)
+                eventSystem.SetSelectedGameObject(storeSelected);
+            else
+                storeSelected = eventSystem.currentSelectedGameObject;
+            
+
+        }
     }
 
     public void CreditOpen()
     {
         CreditsScreen.SetActive(true);
         MainMenu.SetActive(false);
+        eventSystem.SetSelectedGameObject(returnButton);
     }
 
     public void CreditClose()
     {
         CreditsScreen.SetActive(false);
         MainMenu.SetActive(true);
+        eventSystem.SetSelectedGameObject(createButton);
     }
     public void ControlsOpen()
     {
         ControlsScreen.SetActive(true);
+        CreditsScreen.SetActive(false);
         MainMenu.SetActive(false);
+        eventSystem.SetSelectedGameObject(secondReturnButton);
     }
     public void ControlsClose()
     {
         ControlsScreen.SetActive(false);
         MainMenu.SetActive(true);
+        eventSystem.SetSelectedGameObject(createButton);
     }
 
     public void EndGame()
@@ -78,5 +101,6 @@ public class ButtonActions : MonoBehaviour
     {
         MainMenu.SetActive(false);
         JoinMenu.SetActive(true);
+        eventSystem.SetSelectedGameObject(startButton);
     }
 }

@@ -8,21 +8,22 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
+    //Serialize fields
     [SerializeField]
     private int m_NumRoundsToWin = 1;
     [SerializeField]
     private float m_StartDelay = 3f;
     [SerializeField]
     private float m_EndDelay = 3f;
+    //Public variables
     public CameraControl m_CameraControl;
     public Text m_MessageText;
     public GameObject m_ButterflyPrefab;
     public PlayerManager[] m_Players;
     public GameObject[] m_Resources;
+    //Private variables
     private int deadResources;
     private int[] Scores = new int[4];
-    
-
     private int m_RoundNumber;
     private WaitForSeconds m_StartWait;
     private WaitForSeconds m_EndWait;
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
     private PlayerManager m_GameWinner;
     private int numberOfPlayers;
 
+    //UI Elements
     [SerializeField]
     private GameObject endMessagePanel;
     [SerializeField]
@@ -47,14 +49,15 @@ public class GameManager : MonoBehaviour
 
         endMessagePanel.SetActive(false);
         SettingScores();
-        SpawnAllTanks();
+        SpawnAllPlayers();
         SetCameraTargets();
 
         storeSelected = ES.firstSelectedGameObject;
         StartCoroutine(GameLoop());
 	}
 
-    private void SpawnAllTanks()
+    //Spawning all the players depending on the number of people that joined in the join screen
+    private void SpawnAllPlayers()
     {
         for(int i = 0; i < numberOfPlayers; i++)
         {
@@ -62,11 +65,10 @@ public class GameManager : MonoBehaviour
             m_Players[i].m_PlayerNumber = i + 1;
             m_Players[i].Setup();
             m_Players[i].PlayerName.text = m_Players[i].m_ColoredPlayerText;
-            //Scores[i].enabled = true;
-            //Scores[i].color = m_Players[i].m_PlayerColor;
+            
         }
     }
-
+    //Setting the cameras depending on the number of players
     private void SetCameraTargets()
     {
         Transform[] targets = new Transform[numberOfPlayers];
@@ -78,7 +80,7 @@ public class GameManager : MonoBehaviour
 
         m_CameraControl.m_Targets = targets;
     }
-
+    //Setting the scores and making sure to keep track of them
     private void SettingScores()
     {
         Scores[0] = Depletion.player1Score;
@@ -86,7 +88,7 @@ public class GameManager : MonoBehaviour
         Scores[2] = Depletion.player3Score;
         Scores[3] = Depletion.player4Score;
     }
-
+    //The main loop for the game
     private IEnumerator GameLoop()
     {
         yield return StartCoroutine(RoundStarting());
@@ -107,7 +109,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(GameLoop());
         }
     }
-
+    //Beginning of the game, setting round number
     private IEnumerator RoundStarting()
     {
         ResetAllPlayers();
@@ -120,20 +122,20 @@ public class GameManager : MonoBehaviour
 
         yield return m_StartWait;
     }
-
+    //Loop during the game
     private IEnumerator RoundPlaying()
     {
+        //Enabling the players control
         EnablePlayerControl();
-        //UpdatePlayerScores();
         m_MessageText.text = string.Empty;
-
+        //Checking if all the resources are gone and if they aren't continue with the loop
         while(!AllResourcesGone())
         {
             yield return null;
         }
 
     }
-
+    //For the end of the game and checking for round winners and if there's a game winner
     private IEnumerator RoundEnding()
     {
         DisablePlayerControls();
@@ -154,7 +156,7 @@ public class GameManager : MonoBehaviour
 
         yield return m_EndWait;
     }
-
+    //Checking the variable to see if all the resources are gone
     private bool AllResourcesGone()
     {
         if (Depletion.deadResources == 6)
@@ -164,7 +166,7 @@ public class GameManager : MonoBehaviour
        
 
     }
-
+    //Going through all of the player scores to see which is the highest, or if there's a tie
     private PlayerManager GetRoundWinner()
     {
         bool tie = false;
@@ -186,7 +188,7 @@ public class GameManager : MonoBehaviour
             return null;
 
     }
-
+    //Checking the number of wins for each player to see if a player has the number to win
     private PlayerManager GetGameWinner()
     {
         for (int i = 0; i < numberOfPlayers; i++)
@@ -198,7 +200,7 @@ public class GameManager : MonoBehaviour
 
         return null;
     }
-
+    //Sending back the right message depending on the player winning
     private string EndMessage()
     {
         string message = "Draw";
@@ -223,7 +225,7 @@ public class GameManager : MonoBehaviour
         return message;
 
     }
-
+    //reseting the players, the resources, and the scores for the players
     private void ResetAllPlayers()
     {
         for (int i = 0; i < numberOfPlayers; i++)
@@ -260,7 +262,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
+    //Buttons on the end of the game screen
     public void Replay()
     {
         SceneManager.LoadScene("Level");

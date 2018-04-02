@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FlowerExplosion : MonoBehaviour {
 
+    //Serialize fields
     [SerializeField]
     private LayerMask m_ButterflyMask;
     [SerializeField]
@@ -22,6 +23,7 @@ public class FlowerExplosion : MonoBehaviour {
         Destroy(gameObject, m_MaxLifeTime);
 	}
 
+    //The effect when a projectile hits a player
     private void OnTriggerEnter(Collider other)
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, m_ImpactRadius, m_ButterflyMask);

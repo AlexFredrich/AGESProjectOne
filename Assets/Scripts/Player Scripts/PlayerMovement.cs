@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
-
+    //Public variables
     public int m_PlayerNumber = 1;
+    //Serialize fields
     [SerializeField]
     private float m_Speed = 10f, m_TurnSpeed = 180f;
-
+    //Private variables
     private string m_MovementAxisName;
     private string m_TurnAxisName;
     private Rigidbody m_Rigidbody;
@@ -22,6 +23,7 @@ public class PlayerMovement : MonoBehaviour {
         m_Rigidbody = GetComponent<Rigidbody>();	
 	}
 
+    //Setting the inputs and rigidbody once it's enabled
     private void OnEnable()
     {
         m_Rigidbody.isKinematic = false;
@@ -30,12 +32,12 @@ public class PlayerMovement : MonoBehaviour {
         m_TurnInputValue = 0;
         
     }
-
+    //Making the player kinematic once it is disabled
     private void OnDisable()
     {
         m_Rigidbody.isKinematic = true;
     }
-
+    //Setting the movement and turn axis's for each player
     private void Start()
     {
         m_MovementAxisName = "Vertical" + m_PlayerNumber;
@@ -55,14 +57,14 @@ public class PlayerMovement : MonoBehaviour {
         Move();
         Turn();
     }
-
+    //Movement function
     private void Move()
     {
         Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime;
 
         m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
     }
-
+    //Turn funciton
     private void Turn()
     {
         float turn = m_TurnInputValue * m_TurnSpeed * Time.deltaTime;

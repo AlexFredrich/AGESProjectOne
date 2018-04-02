@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour {
-
+    //public fields
     public int m_PlayerNumber = 1;
-
+    //Serialize fields
     [SerializeField]
     private Rigidbody m_Shell;
     [SerializeField]
@@ -16,7 +16,7 @@ public class PlayerShooting : MonoBehaviour {
     private float m_MaxLaunchForce = 30f;
     [SerializeField]
     private float m_MaxChargeTime = 0.75f;
-
+    //Private fields
     private string m_FireButton;
     private float m_CurrentLaunchForce;
     private float m_ChargeSpeed;
@@ -59,7 +59,7 @@ public class PlayerShooting : MonoBehaviour {
             Fire();
         }
     }
-
+    //The actual firing function, instantiating the shell and checking the launch force and velocity
     private void Fire()
     {
         m_Fired = true;
@@ -73,7 +73,7 @@ public class PlayerShooting : MonoBehaviour {
         StartCoroutine(CoolDown());
 
     }
-
+    //A coldown for firing so that you can't spam the firing button
     public IEnumerator CoolDown()
     {
         yield return new WaitForSeconds(1);

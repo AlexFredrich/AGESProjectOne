@@ -34,6 +34,7 @@ public class ButtonActions : MonoBehaviour
         SecondReturnButton.onClick.AddListener(ControlsClose);
 
     }
+    //All of the functions are used to control the menu and the panel visibility
     // Use this for initialization
     void Start()
     {
@@ -42,7 +43,7 @@ public class ButtonActions : MonoBehaviour
         ControlsScreen.SetActive(false);
         storeSelected = eventSystem.firstSelectedGameObject;
     }
-
+    //Making sure that if you click with the mouse you can still use the controller
     private void Update()
     {
         if(eventSystem.currentSelectedGameObject != storeSelected)
@@ -55,7 +56,7 @@ public class ButtonActions : MonoBehaviour
 
         }
     }
-
+    
     public void CreditOpen()
     {
         CreditsScreen.SetActive(true);
@@ -87,9 +88,10 @@ public class ButtonActions : MonoBehaviour
     {
         Application.Quit();
     }
-
+    
     public void StartGame()
     {
+        //Making sure that the player can only move forward if there are at least 2 players.
         if(PlayerCount.NumberOfPlayers >= 2)
         {
             SceneManager.LoadScene(1);

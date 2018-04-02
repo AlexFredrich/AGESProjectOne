@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ScoreUpdating : MonoBehaviour {
-
+    
+    //Acquiring the text fields for each player's score
     [SerializeField]
     private Text p1Score;
 
@@ -17,6 +18,7 @@ public class ScoreUpdating : MonoBehaviour {
     [SerializeField]
     private Text p4Score;
 
+    //Making sure to regularly call the function to update the player's score
     private void FixedUpdate()
     {
         UpdatingScores();
@@ -24,6 +26,7 @@ public class ScoreUpdating : MonoBehaviour {
 
     private void UpdatingScores()
     {
+        //Checking whether a player's score isn't 0 and then changing, if the score is 0 then the string is empty
         if(Depletion.player1Score != 0)
         {
             p1Score.text = "Player 1: " + Depletion.player1Score.ToString();

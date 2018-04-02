@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraControl : MonoBehaviour {
-
+    //Serialize fields
     [SerializeField]
     private float m_DampTime = .2f;
     [SerializeField]
@@ -12,12 +12,13 @@ public class CameraControl : MonoBehaviour {
     [SerializeField]
     private float m_MinSize = 6.5f;
     /* [HideInInspector] */ public Transform[] m_Targets;
-
+    //Private variables
     private Camera m_Camera;
     private float m_ZoomSpeed;
     private Vector3 m_MoveVelocity;
     private Vector3 m_DesiredPosition;
 
+    //Getting the camera component
     private void Awake()
     {
         m_Camera = GetComponentInChildren<Camera>();
@@ -29,14 +30,14 @@ public class CameraControl : MonoBehaviour {
 
         Zoom();
     }
-
+    //Moving the camera
     private void Move()
     {
         FindAveragePosition();
 
         transform.position = Vector3.SmoothDamp(transform.position, m_DesiredPosition, ref m_MoveVelocity, m_DampTime);
     }
-
+    //Finding the average position of the camera depending on the number of players
     private void FindAveragePosition()
     {
         Vector3 averagePos = new Vector3();
@@ -58,13 +59,13 @@ public class CameraControl : MonoBehaviour {
 
         m_DesiredPosition = averagePos;
     }
-
+    //Zooming the camera
     private void Zoom()
     {
         float requiredSize = FindRequiredSize();
         m_Camera.orthographicSize = Mathf.SmoothDamp(m_Camera.orthographicSize, requiredSize, ref m_ZoomSpeed, m_DampTime);
     }
-
+    //Findng the size of the camera
     private float FindRequiredSize()
     {
         Vector3 desiredLocalPos = transform.InverseTransformPoint(m_DesiredPosition);
@@ -89,7 +90,7 @@ public class CameraControl : MonoBehaviour {
 
         return size;
     }
-
+    //Resetting the camera position when a game finishes
     public void SetStartPositionAndSize()
     {
         FindAveragePosition();

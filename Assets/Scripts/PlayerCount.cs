@@ -39,7 +39,7 @@ public class PlayerCount : MonoBehaviour {
         CheckingJoinedPlayers();
         
     }
-
+    //Going through a loop that checks if a person has joined and if they press the join button they'll be added to the joined list
     private void CheckingJoinedPlayers()
     {
         for (int i = 0; i < MaxPlayers; i++)
@@ -54,7 +54,7 @@ public class PlayerCount : MonoBehaviour {
             }
         }
     }
-
+    //Acquiring the number of max players and setting all of them to false for not having joined
     private void GettingPlayerList()
     {
         joinedPlayers = new bool[MaxPlayers];
